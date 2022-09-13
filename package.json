@@ -1,0 +1,12 @@
+{
+  "name": "project-open-to-intern",
+  "version": "1.0.0",
+  "description": "project on open-to-intern",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "author": "group-13",
+  "license": "ISC"
+}
