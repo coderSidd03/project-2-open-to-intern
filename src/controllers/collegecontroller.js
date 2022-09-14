@@ -1,7 +1,6 @@
 const collegeModel = require("../model/collegeModel");
 const internModel = require("../model/internModel");
 
-//const { default: mongoose } = require("mongoose");
 
 const CreateCollege = async function (req, res) {
     try {
@@ -12,35 +11,27 @@ const CreateCollege = async function (req, res) {
 
         if (Object.keys(rest) > 0) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
 
-        if (!name)
-            return res.status(400).send({ status: false, msg: "name is required" });
-        if (!fullName)
-            return res
-                .status(400)
-                .send({ status: false, msg: "fullName is required" });
-        if (!logoLink)
-            return res.status(400).send({ status: false, msg: "logoLink is required" });
+        if (!name) return res.status(400).send({ status: false, msg: "name is required" });
+        if (!fullName) return res.status(400).send({ status: false, msg: "fullName is required" });
+        if (!logoLink) return res.status(400).send({ status: false, msg: "logoLink is required" });
 
         if (typeof name !== "string" || name.trim().length <= 0)
-            return res
-                .status(400)
-                .send({ status: false, msg: "name must be a non empty string" });
+            return res.status(400).send({ status: false, msg: "name must be a non empty string" });
+
         if (typeof fullName !== "string" || fullName.trim().length <= 0)
-            return res
-                .status(400)
-                .send({ status: false, msg: "fullName must be a non empty string" });
+            return res.status(400).send({ status: false, msg: "fullName must be a non empty string" });
+
         if (typeof logoLink !== "string" || logoLink.trim().length <= 0)
-            return res
-                .status(400)
-                .send({ status: false, msg: "logolink must be a non empty string" });
+            return res.status(400).send({ status: false, msg: "logolink must be a non empty string" });
 
         const findcollege = await collegeModel.findOne({ name: name });
+
         if (findcollege) {
-            return res
-                .status(400)
-                .send({ status: false, msg: "college already exist" });
+            return res.status(400).send({ status: false, msg: "college already exist" });
         }
+
         const result = await collegeModel.create(req.body);
+
         res.status(201).send({ status: true, data: result });
     } catch (err) {
         res.status(500).status({ status: false, Error: err });
