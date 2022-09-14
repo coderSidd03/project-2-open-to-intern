@@ -19,13 +19,13 @@ const checkString = (value) => { return ((typeof (value) === 'string' && value.t
 const createIntern = async (req, res) => {
     try {
         let internData = req.body;
-        let { name, mobile, email, collegeName, ...rest } = { ...internData }
+        let { name, mobile, email, collegeName, ...rest } = internData
 
         // checking that non empty body found
-        if (!Object.keys(internData)) return res.status(404).send({ status: false, msg: "nothing found from body" })
+        if (!Object.keys(internData) > 0) return res.status(400).send({ status: false, msg: "nothing found from body" })
 
         // checking that nothing given other than required fields
-        if (Object.keys(rest) > 0) return res.status(404).send({ status: false, msg: "provide required details only => name, mobile, email, collegeName" })
+        // if (Object.keys(rest) > 0) return res.status(404).send({ status: false, msg: "provide required details only => name, mobile, email, collegeName" })
 
         // checking that all inputs are in non empty string and validating with regex
         // name , email , mobile
@@ -48,11 +48,11 @@ const createIntern = async (req, res) => {
         if (findMobile) return res.status(400).send({ status: false, message: 'provided Mobile No is already used....' })
 
         // finding that if college is present in DB or not ?
-       let findCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
+        let findCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
         if (!findCollege) return res.status(404).send({ status: false, message: "provided college is not present in DB" })
 
         // setting the found college's id inside data
-        internData.collegeId = findCollege['_id'].toString()
+        internData.collegeId = findCollege._id
 
         // create the intern data in DB
         let createdIntern = await internModel.create(internData)
