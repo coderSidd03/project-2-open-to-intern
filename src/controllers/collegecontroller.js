@@ -3,19 +3,16 @@ const internModel = require("../model/internModel");
 
 //const { default: mongoose } = require("mongoose");
 
-const Createcollege = async function (req, res) {
+const CreateCollege = async function (req, res) {
     try {
         let { name, fullName, logoLink, ...rest } = req.body;
+        
         if (Object.keys(req.body).length == 0) {
-            return res
-                .status(400)
-                .send({ status: false, Error: "please provide details" });
+            return res.status(400).send({ status: false, Error: "please provide details" });
         }
 
-        if (Object.keys(rest) > 0)
-            return res
-                .status(400)
-                .send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
+        if (Object.keys(rest) > 0) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
+        
         if (!name)
             return res.status(400).send({ status: false, msg: "name is required" });
         if (!fullName)
@@ -77,4 +74,4 @@ const getCollegeDetails = async function (req, res) {
 
 
 
-module.exports.Creatcollege = Creatcollege;
+module.exports = { CreateCollege, getCollegeDetails };
