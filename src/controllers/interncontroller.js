@@ -16,7 +16,7 @@ const checkString = (value) => { return ((typeof (value) === 'string' && value.t
 // - Return HTTP status 201 on a succesful document creation. Also return the document. The response should be a JSON object like [this](#successful-response-structure)
 // - Return HTTP status 400 for an invalid request with a response body like [this](#error-response-structure)
 
-const createIntern = (req, res) => {
+const createIntern = async (req, res) => {
     try {
         let internData = req.body;
         let { name, mobile, email, collegeName, ...rest } = { ...internData }
@@ -50,7 +50,7 @@ const createIntern = (req, res) => {
         // finding that if college is present in DB or not ?
         findCollege = await collegeModel.findOne({ name: collegeName.toLowerCase(), isDeleted: false })
         if (!findCollege) return res.status(404).send({ status: false, message: "provided college is not present in DB" })
-        
+
         // setting the found college's id inside data
         internData.collegeId = findCollege['_id'].toString()
 
