@@ -23,18 +23,18 @@ const internSchema = new mongoose.Schema({
     },
 
     collegeId: {
-        type: ObjrctId,
+        type: ObjectId,
         required: true,
         ref: "College",
         trim:true
     },
     isDeleted: {
-        type: Bollean,
+        type: Boolean,
         default: false,
         trim:true
     }
 }, { timestamps: true });
 
-module.exports = model.mongoose('Intern',internSchema);
+module.exports = mongoose.model('Intern',internSchema);
  
   

@@ -1,5 +1,5 @@
-const internModel = require('../models/internModel.js');
-const collegeModel = require('../models/collegeModel.js')
+const internModel = require('../model/internModel.js');
+const collegeModel = require('../model/collegeModel.js')
 
 // function to validate regex formats >  name , email , mobile 
 const validateName = (name) => { return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(name)); }

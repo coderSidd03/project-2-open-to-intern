@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const collegeSchema = new mongoose.schema({
+const collegeSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -10,7 +10,7 @@ const collegeSchema = new mongoose.schema({
     fullName: {
         type: String,
         required: true,
-        trim:ture
+        trim:true
     },
 
     logoLink: {
@@ -27,5 +27,5 @@ const collegeSchema = new mongoose.schema({
 
 }, {newtimeStamp:true})
 
-module.exports = model.mongoose('College',collegeSchema);
+module.exports = mongoose.model('College',collegeSchema);
 
