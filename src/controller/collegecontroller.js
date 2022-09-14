@@ -49,5 +49,23 @@ const Creatcollege = async function (req, res) {
     res.status(500).status({ status: false, Error: err });
   }
 };
+//====================================================================================================
+const getCollegeDetails = async function (req, res) {
+  try {
+    let collegeName = req.query;
+
+    if (Object.keys(collegeName) == 0) {
+      return res.status(404).send({ status: false, msg: "Provide a college Name" });
+    }
+    
+    let getCollegeDetails = await collegeModel.findOne(collegeName);
+   // res.status(200).send({status:true,data:getCollegeDetails})
+   let internsId= getCollegeDetails["_id"]
+
+    if(!getCollegeDetails){
+      res.status(400).send({status:false,msg:"college not exist"})
+    }
+
+
 
 module.exports.Creatcollege = Creatcollege;
