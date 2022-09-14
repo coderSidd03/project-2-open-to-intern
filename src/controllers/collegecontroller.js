@@ -64,8 +64,10 @@ const getCollegeDetails = async function (req, res) {
 
     if(!getCollegeDetails){
       res.status(400).send({status:false,msg:"college not exist"})
-    }
+    }  
+  
+  
+  
 
 
-
-module.exports.Creatcollege = Creatcollege;
+module.exports.Creatcollege = Creatcollege

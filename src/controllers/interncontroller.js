@@ -16,7 +16,7 @@ const checkString = (value) => { return ((typeof (value) === 'string' && value.t
 // - Return HTTP status 201 on a succesful document creation. Also return the document. The response should be a JSON object like [this](#successful-response-structure)
 // - Return HTTP status 400 for an invalid request with a response body like [this](#error-response-structure)
 
-const createIntern = (req, res) => {
+const createIntern = async (req, res) => {
     try {
         let internData = req.body;
         let { name, mobile, email, collegeName, ...rest } = { ...internData }
