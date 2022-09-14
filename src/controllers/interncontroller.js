@@ -48,7 +48,7 @@ const createIntern = async (req, res) => {
         if (findMobile) return res.status(400).send({ status: false, message: 'provided Mobile No is already used....' })
 
         // finding that if college is present in DB or not ?
-        findCollege = await collegeModel.findOne({ name: collegeName.toLowerCase(), isDeleted: false })
+        findCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
         if (!findCollege) return res.status(404).send({ status: false, message: "provided college is not present in DB" })
 
         // setting the found college's id inside data
