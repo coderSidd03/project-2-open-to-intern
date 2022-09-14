@@ -1,4 +1,5 @@
 const collegeModel = require("../model/collegeModel");
+const internModel = require("../model/internModel");
 
 //const { default: mongoose } = require("mongoose");
 
@@ -57,17 +58,22 @@ const getCollegeDetails = async function (req, res) {
     if (Object.keys(collegeName) == 0) {
       return res.status(404).send({ status: false, msg: "Provide a college Name" });
     }
-    
     let getCollegeDetails = await collegeModel.findOne(collegeName);
    // res.status(200).send({status:true,data:getCollegeDetails})
-   let internsId= getCollegeDetails["_id"]
+   if(!getCollegeDetails){
+    res.status(400).send({status:false,msg:"college not exist"})
+  }
 
-    if(!getCollegeDetails){
-      res.status(400).send({status:false,msg:"college not exist"})
-    }
+  let collegeId= getCollegeDetails["_id"]
+
+   let internsDetails= await internModel.find({collegeId:collegeId})
+   getCollegeDetails.interns=internsDetails
+   res.status(200).send({status:true,data:getCollegeDetails})
+
+   
 }
     catch (err) {
         res.status(500).status({ status: false, Error: err });
       }
     }
-module.exports.Creatcollege = Creatcollege;
+module.exports ={ Creatcollege, getCollegeDetails};
