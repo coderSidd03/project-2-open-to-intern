@@ -10,7 +10,6 @@ const Creatcollege = async function (req, res) {
         .status(400)
         .send({ status: false, Error: "please provide details" });
     }
-
     if (Object.keys(rest) > 0)
       return res
         .status(400)
