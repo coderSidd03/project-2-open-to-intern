@@ -58,26 +58,19 @@ const getCollegeDetails = async function (req, res) {
       return res.status(404).send({ status: false, msg: "Provide a college Name" });
     }
 
-    let college = Object.values(collegeName).toLocaleString().trim()
-    let getCollegeDetails = await collegeModel.findOne({name:college})
-
-    let getCollegeDetails = await collegeModel.findOne({name:collegeName})
+   let getCollegeDetails = await collegeModel.findOne({name:collegeName})
 
    // res.status(200).send({status:true,data:getCollegeDetails})
    if(!getCollegeDetails){
     res.status(400).send({status:false,msg:"college not exist"})
   }
+// let collegeId= getCollegeDetails["_id"]
 
+  //  let internsDetails= await internModel.find({collegeId:getCollegeDetails["_id"]}).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+  // //  getCollegeDetails.interns=internsDetails
+  //  res.status(200).send({status:true,data: internsDetails})
 
-  // let collegeId= getCollegeDetails["_id"]
-
-   let internsDetails= await internModel.find({collegeId:getCollegeDetails["_id"]}).select({ _id: 1, name: 1, email: 1, mobile: 1 })
-  //  getCollegeDetails.interns=internsDetails
-   res.status(200).send({status:true,data: internsDetails})
-
-  // let collegeId= getCollegeDetails["_id"]//.toString()
-
-   let internsDetails= await internModel.find({collegeId:getCollegeDetails["_id"]}).select({name:1,email:1,mobile:1,_id:1})
+  let internsDetails= await internModel.find({collegeId:getCollegeDetails["_id"]}).select({name:1,email:1,mobile:1,_id:1})
    //getCollegeDetails.interns=internsDetails
   // res.status(200).send({status:true,data:internsDetails})
   let result = {
@@ -87,12 +80,7 @@ const getCollegeDetails = async function (req, res) {
     interns: internsDetails
 }
 res.status(200).send({ status: true, data: result })
-
-
-
-   
-}
-    catch (err) {
+} catch (err) {
         res.status(500).status({ status: false, Error: err });
       }
     }
