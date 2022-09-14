@@ -1,6 +1,6 @@
 const collegeModel = require("../model/collegeModel");
 
-const { default: mongoose } = require("mongoose");
+//const { default: mongoose } = require("mongoose");
 
 const Creatcollege = async function (req, res) {
   try {
@@ -65,7 +65,9 @@ const getCollegeDetails = async function (req, res) {
     if(!getCollegeDetails){
       res.status(400).send({status:false,msg:"college not exist"})
     }
-
-
-
+}
+    catch (err) {
+        res.status(500).status({ status: false, Error: err });
+      }
+    }
 module.exports.Creatcollege = Creatcollege;
