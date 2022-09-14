@@ -11,7 +11,7 @@ const CreateCollege = async function (req, res) {
         }
 
         if (Object.keys(rest) > 0) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
-        
+
         if (!name)
             return res.status(400).send({ status: false, msg: "name is required" });
         if (!fullName)
@@ -54,9 +54,11 @@ const getCollegeDetails = async function (req, res) {
         if (Object.keys(collegeName) == 0) return res.status(400).send({ status: false, msg: "Provide a college Name" });
 
         let getCollegeDetails = await collegeModel.findOne({ name: collegeName, isDeleted: false });
-        if (!getCollegeDetails) res.status(404).send({ status: false, msg: "college not exist" })
+        if (!getCollegeDetails) return res.status(404).send({ status: false, msg: "college not exist" })
 
         let internsDetails = await internModel.find({ collegeId: getCollegeDetails._id, isDeleted: false })
+        if (internsDetails.length == 0) return res.status(404).send({ status: false, msg: "no interns found for the given coollege" })
+
 
         let result = {
             name: getCollegeDetails['name'],
