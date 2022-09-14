@@ -6,7 +6,6 @@ const internModel = require("../model/internModel");
 const CreateCollege = async function (req, res) {
     try {
         let { name, fullName, logoLink, ...rest } = req.body;
-        
         if (Object.keys(req.body).length == 0) {
             return res.status(400).send({ status: false, Error: "please provide details" });
         }
@@ -22,15 +21,15 @@ const CreateCollege = async function (req, res) {
         if (!logoLink)
             return res.status(400).send({ status: false, msg: "logoLink is required" });
 
-        if (typeof name !== "string" && name.trim().length <= 0)
+        if (typeof name !== "string" || name.trim().length <= 0)
             return res
                 .status(400)
                 .send({ status: false, msg: "name must be a non empty string" });
-        if (typeof fullName !== "string" && fullName.trim().length <= 0)
+        if (typeof fullName !== "string" || fullName.trim().length <= 0)
             return res
                 .status(400)
                 .send({ status: false, msg: "fullName must be a non empty string" });
-        if (typeof logoLink !== "string" && logoLink.trim().length <= 0)
+        if (typeof logoLink !== "string" || logoLink.trim().length <= 0)
             return res
                 .status(400)
                 .send({ status: false, msg: "logolink must be a non empty string" });
