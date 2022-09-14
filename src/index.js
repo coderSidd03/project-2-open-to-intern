@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// "mongodb+srv://DipaliBohara:80761668@cluster0.4wyyohq.mongodb.net/dipaliProject2"
 mongoose.connect("mongodb+srv://BittuMishra:ZsLbBdUnCK.2jta@cluster0.2v1vzde.mongodb.net/Project2?retryWrites=true&w=majority",
     {
         useNewUrlParser: true
