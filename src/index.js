@@ -3,19 +3,24 @@ const bodyParser = require('body-parser');
 const route = require('./routes/route');
 
 
+
 const app = express();
+const {mongoose}=require("mongoose")
+
+
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-
-app.use('/', route);
 
 mongoose.connect("mongodb+srv://DipaliBohara:80761668@cluster0.4wyyohq.mongodb.net/dipaliProject2"
 , {
    useNewUrlParser: true 
-}
-).then( () => {console.log("MongoDb is connected")})
+})
+.then( () => {console.log("MongoDb is connected")})
 .catch( err => console.log(err))
+
+app.use('/', route);
 
 
 app.listen(process.env.PORT || 3000, () => {

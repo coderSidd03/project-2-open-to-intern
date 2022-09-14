@@ -1,5 +1,5 @@
-const internModel = require('../models/internModel.js');
-const collegeModel = require('../models/collegeModel.js')
+const internModel = require('../model/internModel.js');
+const collegeModel = require('../model/collegeModel.js')
 
 // function to validate regex formats >  name , email , mobile 
 const validateName = (name) => { return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(name)); }
@@ -50,7 +50,7 @@ const createIntern = async (req, res) => {
         // finding that if college is present in DB or not ?
         let findCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
         if (!findCollege) return res.status(404).send({ status: false, message: "provided college is not present in DB" })
-        
+
         // setting the found college's id inside data
         internData.collegeId = findCollege._id
 

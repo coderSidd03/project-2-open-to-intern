@@ -1,6 +1,7 @@
 const collegeModel = require("../model/collegeModel");
+const internModel = require("../model/internModel");
 
-const { default: mongoose } = require("mongoose");
+//const { default: mongoose } = require("mongoose");
 
 const Createcollege = async function (req, res) {
     try {
@@ -46,7 +47,7 @@ const Createcollege = async function (req, res) {
         const result = await collegeModel.create(req.body);
         res.status(201).send({ status: true, data: result });
     } catch (err) {
-        res.status(500).status({ status: false, Error: err.message });
+        res.status(500).status({ status: false, Error: err });
     }
 };
 //====================================================================================================
@@ -76,4 +77,4 @@ const getCollegeDetails = async function (req, res) {
 
 
 
-module.exports = { Createcollege, getCollegeDetails }
+module.exports.Creatcollege = Creatcollege;
