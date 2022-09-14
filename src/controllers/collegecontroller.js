@@ -25,15 +25,15 @@ const Creatcollege = async function (req, res) {
     if (!logoLink)
       return res.status(400).send({ status: false, msg: "logoLink is required" });
 
-    if (typeof name !== "string" && name.trim().length <= 0)
+    if (typeof name !== "string" || name.trim().length <= 0)
       return res
         .status(400)
         .send({ status: false, msg: "name must be a non empty string" });
-    if (typeof fullName !== "string" && fullName.trim().length <= 0)
+    if (typeof fullName !== "string" || fullName.trim().length <= 0)
       return res
         .status(400)
         .send({ status: false, msg: "fullName must be a non empty string" });
-    if (typeof logoLink !== "string"&& logoLink.trim().length <= 0)
+    if (typeof logoLink !== "string"|| logoLink.trim().length <= 0)
       return res
         .status(400)
         .send({ status: false, msg: "logolink must be a non empty string"});
@@ -55,20 +55,21 @@ const getCollegeDetails = async function (req, res) {
   try {
     let collegeName = req.query;
 
-    if (Object.keys(collegeName) == 0) {
+    if (Object.keys(collegeName).length == 0) {
       return res.status(404).send({ status: false, msg: "Provide a college Name" });
     }
-    let getCollegeDetails = await collegeModel.findOne(collegeName);
+    let college = Object.values(collegeName).toLocaleString().trim()
+    let getCollegeDetails = await collegeModel.findOne({name:college})
    // res.status(200).send({status:true,data:getCollegeDetails})
    if(!getCollegeDetails){
     res.status(400).send({status:false,msg:"college not exist"})
   }
 
-  let collegeId= getCollegeDetails["_id"]
+  // let collegeId= getCollegeDetails["_id"]
 
-   let internsDetails= await internModel.find({collegeId:collegeId})
-   getCollegeDetails.interns=internsDetails
-   res.status(200).send({status:true,data:getCollegeDetails})
+   let internsDetails= await internModel.find({collegeId:getCollegeDetails["_id"]}).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+  //  getCollegeDetails.interns=internsDetails
+   res.status(200).send({status:true,data: internsDetails})
 
    
 }
