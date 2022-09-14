@@ -50,7 +50,7 @@ const createIntern = async (req, res) => {
         // finding that if college is present in DB or not ?
         findCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
         if (!findCollege) return res.status(404).send({ status: false, message: "provided college is not present in DB" })
-        
+
         // setting the found college's id inside data
         internData.collegeId = findCollege['_id'].toString()
 
