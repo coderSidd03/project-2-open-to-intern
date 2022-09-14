@@ -7,13 +7,15 @@ const { createIntern } = require("../controllers/internController.js")
 
 //** --------- //////           APIs             \\\\\\ --------- **//
 
-//>>>>>     Create college
-router.post("/functionup/colleges", CreateCollege)
+//  >>>>>     Create college
+router.post("/functionup/colleges", CreateCollege) 
 
-//>>>>>     Create Intern
+//  >>>>>     Create Intern
 router.post("/functionup/interns", createIntern)
 
-//>>>>>     get college details 
+//  >>>>>     get college details 
 router.get("/functionup/collegeDetails", getCollegeDetails)
+
+
 module.exports = router;
 

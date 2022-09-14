@@ -2,6 +2,8 @@ const collegeModel = require("../model/collegeModel");
 const internModel = require("../model/internModel");
 
 
+//============================      create college       ==================   /functionup/colleges   ===============
+
 const CreateCollege = async function (req, res) {
     try {
         let { name, fullName, logoLink, ...rest } = req.body;
@@ -37,7 +39,10 @@ const CreateCollege = async function (req, res) {
         res.status(500).status({ status: false, Error: err });
     }
 };
-//====================================================================================================
+
+
+//============================      get college Details       ==================   /functionup/collegeDetails   ===============
+
 const getCollegeDetails = async function (req, res) {
     try {
         let collegeName = req.query.collegeName;

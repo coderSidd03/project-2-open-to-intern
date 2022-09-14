@@ -1,13 +1,14 @@
 const internModel = require('../model/internModel.js');
 const collegeModel = require('../model/collegeModel.js')
 
+
+// validating that the input must be a non-empty string
+const checkString = (value) => { return ((typeof (value) === 'string' && value.trim().length > 0)); }
+
 // function to validate regex formats >  name , email , mobile 
 const validateName = (name) => { return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(name)); }
 const validateEmail = (email) => { return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)); }
 const validateMobileNo = (number) => { return (/^(\+\d{1,3}[- ]?)?\d{10}$/.test(number)); }
-
-// validating that the input must be a non-empty string
-const checkString = (value) => { return ((typeof (value) === 'string' && value.trim().length > 0)); }
 
 
 // ### POST /functionup/interns
@@ -15,6 +16,9 @@ const checkString = (value) => { return ((typeof (value) === 'string' && value.t
 // - Also save the collegeId along with the document. Your request body contains the following fields - { name, mobile, email, collegeName}
 // - Return HTTP status 201 on a succesful document creation. Also return the document. The response should be a JSON object like [this](#successful-response-structure)
 // - Return HTTP status 400 for an invalid request with a response body like [this](#error-response-structure)
+
+
+//============================      create interns       ==================   /functionup/interns   ===============
 
 const createIntern = async (req, res) => {
     try {
