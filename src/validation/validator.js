@@ -17,8 +17,8 @@ const checkString = (value) => {
 // function to validate regex formats >  name ,fullName, logoLink, email , mobile
 
 const validateName = (name) => {
-    //  return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(fullName));
-    return (/^[a-z]+$/.test(name))
+    // return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(name));
+    return (/^[a-z]+$/g.test(name))
 }
 
 const validatefullName = (fullName) => {
@@ -27,7 +27,9 @@ const validatefullName = (fullName) => {
 }
 
 const validatelogoLink = (logoLink) => {
-    return (/(https?:\/\/(?:www\.)?[\w+-_.0-9@\/]+logo.(?:png|jpg|jpeg))/i.test(logoLink));
+    // return (/(https?:\/\/(?:www\.)?[\w+-_.0-9@\/]+logo.(?:png|jpg|jpeg))/i.test(logoLink));
+    // /^[a-zA-Z0-9!@#$&()`.:?=_+,/"-]*$/
+    return (/^[a-zA-Z0-9!@#$&()`.:?=_+,/"-].[a-z]+.(?:png|jpg|jpeg))/i.test(logoLink));
 }
 
 
