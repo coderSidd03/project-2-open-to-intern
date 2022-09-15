@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 //** Globally used functions **/
@@ -27,9 +26,7 @@ const validatefullName = (fullName) => {
 }
 
 const validatelogoLink = (logoLink) => {
-    // return (/(https?:\/\/(?:www\.)?[\w+-_.0-9@\/]+logo.(?:png|jpg|jpeg))/i.test(logoLink));
-    // /^[a-zA-Z0-9!@#$&()`.:?=_+,/"-]*$/
-    return (/^[a-zA-Z0-9!@#$&()`.:?=_+,/"-].[a-z]+.(?:png|jpg|jpeg))/i.test(logoLink));
+    return (/^[a-zA-Z0-9!@#$&()`.:?=_+,/"-]*$/.test(logoLink))
 }
 
 
