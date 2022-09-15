@@ -8,30 +8,24 @@ const Validator = require("../validation/validator");
 const CreateCollege = async function (req, res) {
     try {
         let { name, fullName, logoLink, ...rest } = req.body;
-        if (Validator.checkInputsPresent(req.body)) {
+        if (!Validator.checkInputsPresent(req.body)) {
             return res.status(400).send({ status: false, Error: "please provide details" });
         }
 
-        if (Object.keys(rest) > 0) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
+        if (Validator.checkInputsPresent(rest)) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
 
-        if (!name) return res.status(400).send({ status: false, msg: "name is required" });
-        if (!fullName) return res.status(400).send({ status: false, msg: "fullName is required" });
-        if (!logoLink) return res.status(400).send({ status: false, msg: "logoLink is required" });
+        if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name is required" });
+        if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "name is invalid" });
+        
+        if (!Validator.checkString(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" });
+        if (!Validator.validateName(fullName)) return res.status(400).send({ status: false, msg: "fullName is invalid" });
 
-        if (typeof name !== "string" || name.trim().length <= 0)
-            return res.status(400).send({ status: false, msg: "name must be a non empty string" });
+        if (!Validator.checkString(logoLink)) return res.status(400).send({ status: false, msg: "logoLink is required" });
 
-        if (typeof fullName !== "string" || fullName.trim().length <= 0)
-            return res.status(400).send({ status: false, msg: "fullName must be a non empty string" });
-
-        if (typeof logoLink !== "string" || logoLink.trim().length <= 0)
-            return res.status(400).send({ status: false, msg: "logolink must be a non empty string" });
-
+        
         const findcollege = await collegeModel.findOne({ name: name });
 
-        if (findcollege) {
-            return res.status(400).send({ status: false, msg: "college already exist" });
-        }
+        if (findcollege) return res.status(404).send({ status: false, msg: "college already exist" });
 
         const result = await collegeModel.create(req.body);
 
@@ -48,13 +42,13 @@ const getCollegeDetails = async function (req, res) {
     try {
         let collegeName = req.query.collegeName;
 
-        if (Object.keys(collegeName) == 0) return res.status(400).send({ status: false, msg: "Provide a college Name" });
+        if (!collegeName) return res.status(400).send({ status: false, msg: "Provide collegeName in query" });
 
         let getCollegeDetails = await collegeModel.findOne({ name: collegeName, isDeleted: false });
-        if (!getCollegeDetails) return res.status(404).send({ status: false, msg: "college not exist" })
+        if (!getCollegeDetails) return res.status(400).send({ status: false, msg: "college not exist or deleted already" });
 
         let internsDetails = await internModel.find({ collegeId: getCollegeDetails._id, isDeleted: false })
-        if (internsDetails.length == 0) return res.status(404).send({ status: false, msg: "no interns found for the given coollege" })
+        if (internsDetails.length == 0) return res.status(400).send({ status: false, msg: "no interns found for the given coollege or deleted already" });
 
 
         let result = {

@@ -37,11 +37,11 @@ const createIntern = async (req, res) => {
 
         // finding that email is already present inside DB or not ?
         let findEmailId = await internModel.findOne({ email: email })
-        if (findEmailId) return res.status(400).send({ status: false, message: "provided email is already used...." })
+        if (findEmailId) return res.status(404).send({ status: false, message: "provided email is already used...." })
 
         // finding that mobile no is already present inside DB or not ?
         let findMobile = await internModel.findOne({ mobile: mobile })
-        if (findMobile) return res.status(400).send({ status: false, message: 'provided Mobile No is already used....' })
+        if (findMobile) return res.status(404).send({ status: false, message: 'provided Mobile No is already used....' })
 
         // finding that if college is present in DB or not ?
         let findCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
