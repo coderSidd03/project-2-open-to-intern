@@ -8,15 +8,14 @@ const Validator = require("../validation/validator");
 const CreateCollege = async function (req, res) {
     try {
         let { name, fullName, logoLink, ...rest } = req.body;
-<<<<<<< HEAD
         console.log(logoLink)
         if (!Validator.checkInputsPresent(req.body)) {
             return res.status(400).send({ status: false, Error: "please provide details" });
         }
-=======
+
 
         if (!Validator.checkInputsPresent(req.body)) return res.status(400).send({ status: false, Error: "please provide details" });
->>>>>>> c45715a310b6e81706c0bc087106740f6fd4825d
+
 
         if (Validator.checkInputsPresent(rest)) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
 
