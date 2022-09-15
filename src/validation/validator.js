@@ -22,13 +22,12 @@ const validateName = (name) => {
 
 const validatefullName = (fullName) => {
     return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(fullName));
-    // return (/^[a-z]+$/.test(name))
 }
 
 const validatelogoLink = (logoLink) => {
-    return (/^[a-zA-Z0-9!@#$&()`.:?=_+,/"-]*$/.test(logoLink))
-}
-
+    const urlRegex = /(http[s]:\/\/)([a-z\-0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-\/._~:?#\[\]@!$&'()+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)/i;
+    return urlRegex.test(logoLink)
+};
 
 
 const validateEmail = (email) => {

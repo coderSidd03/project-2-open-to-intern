@@ -2,13 +2,6 @@ const internModel = require('../model/internModel.js');
 const collegeModel = require('../model/collegeModel.js');
 const Validator = require('../validation/validator');
 
-//============================      create intern       ==================   /functionup/interns"   ===============
-// ### POST /functionup/interns
-// - Create a document for an intern.
-// - Also save the collegeId along with the document. Your request body contains the following fields - { name, mobile, email, collegeName}
-// - Return HTTP status 201 on a succesful document creation. Also return the document. The response should be a JSON object like [this](#successful-response-structure)
-// - Return HTTP status 400 for an invalid request with a response body like [this](#error-response-structure)
-
 
 //============================      create interns       ==================   /functionup/interns   ===============
 
@@ -46,7 +39,7 @@ const createIntern = async (req, res) => {
         // finding that if college is present in DB or not ?
         let findCollege = await collegeModel.findOne({ name: collegeName.toLowerCase(), isDeleted: false })
         if (!findCollege) return res.status(404).send({ status: false, message: "provided college is not present in DB" })
-
+        if(!Validator.validateId(findCollege._id))return res.status(404).send({status:false,msg:"Invalid College Id"})
         // setting the found college's id inside data
         internData.collegeId = findCollege._id;
 
