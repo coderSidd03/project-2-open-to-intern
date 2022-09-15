@@ -1,5 +1,6 @@
 const collegeModel = require("../model/collegeModel");
 const internModel = require("../model/internModel");
+const Validator = require("../validation/validator");
 
 
 //============================      create college       ==================   /functionup/colleges   ===============
@@ -7,7 +8,7 @@ const internModel = require("../model/internModel");
 const CreateCollege = async function (req, res) {
     try {
         let { name, fullName, logoLink, ...rest } = req.body;
-        if (Object.keys(req.body).length == 0) {
+        if (Validator.checkInputsPresent(req.body)) {
             return res.status(400).send({ status: false, Error: "please provide details" });
         }
 

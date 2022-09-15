@@ -1,14 +1,6 @@
 const internModel = require('../model/internModel.js');
 const collegeModel = require('../model/collegeModel.js')
-
-
-// validating that the input must be a non-empty string
-const checkString = (value) => { return ((typeof (value) === 'string' && value.trim().length > 0)); }
-
-// function to validate regex formats >  name , email , mobile 
-const validateName = (name) => { return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(name)); }
-const validateEmail = (email) => { return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)); }
-const validateMobileNo = (number) => { return (/^(\+\d{1,3}[- ]?)?\d{10}$/.test(number)); }
+const Validator = require('../validation/validator');
 
 
 // ### POST /functionup/interns
@@ -26,21 +18,21 @@ const createIntern = async (req, res) => {
         let { name, mobile, email, collegeName, ...rest } = internData
 
         // checking that non empty body found
-        if (!Object.keys(internData).length > 0) return res.status(400).send({ status: false, msg: "nothing found from body" })
+        if (!Validator.checkInputsPresent(internData)) return res.status(400).send({ status: false, msg: "nothing found from body" })
 
         // checking that nothing given other than required fields
-        if (Object.keys(rest).length > 0) return res.status(404).send({ status: false, msg: "provide required details only => name, mobile, email, collegeName" })
+        if (Validator.checkInputsPresent(rest)) return res.status(404).send({ status: false, msg: "provide required details only => name, mobile, email, collegeName" })
 
         // checking that all inputs are in non empty string and validating with regex
         // name , email , mobile
-        if (!checkString(name)) return res.status(400).send({ status: false, msg: "name required to create new intern ( in string )" })
-        if (!validateName(name)) return res.status(400).send({ status: false, msg: "invalid name provided" })
+        if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name required to create new intern ( in string )" })
+        if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "invalid name provided" })
 
-        if (!checkString(email)) return res.status(400).send({ status: false, msg: "email required to create new intern ( in string )" })
-        if (!validateEmail(email)) return res.status(400).send({ status: false, msg: "invalid email provided" })
+        if (!Validator.checkString(email)) return res.status(400).send({ status: false, msg: "email required to create new intern ( in string )" })
+        if (!Validator.validateEmail(email)) return res.status(400).send({ status: false, msg: "invalid email provided" })
 
-        if (!checkString(mobile)) return res.status(400).send({ status: false, msg: "mobile required to create new intern ( in string )" })
-        if (!validateMobileNo(mobile)) return res.status(400).send({ status: false, msg: "invalid mobile no provided" })
+        if (!Validator.checkString(mobile)) return res.status(400).send({ status: false, msg: "mobile required to create new intern ( in string )" })
+        if (!Validator.validateMobileNo(mobile)) return res.status(400).send({ status: false, msg: "invalid mobile no provided" })
 
 
         // finding that email is already present inside DB or not ?
