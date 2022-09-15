@@ -4,26 +4,16 @@ const mongoose = require('mongoose');
 
 
 // checking that there is something as input
-const checkInputsPresent = (value) => {
-    return (Object.keys(value).length > 0);
-}
+const checkInputsPresent = (value) => { return (Object.keys(value).length > 0) };
 
 // validating that the input must be a non-empty string
-const checkString = (value) => {
-    return ((typeof (value) === 'string' && value.trim().length > 0));
-}
+const checkString = (value) => { return ((typeof (value) === 'string' && value.trim().length > 0)) };
 
 // function to validate regex formats >  name ,fullName, logoLink, email , mobile
 
-const validateName = (name) => {
-    // return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(name));
-    return (/^[a-z]+$/g.test(name))
-}
+const validateName = (name) => { return (/^[a-z]+$/g.test(name)) }
 
-const validatefullName = (fullName) => {
-    return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(fullName));
-    // return (/^[a-z]+$/.test(name))
-}
+const validatefullName = (fullName) => { return(/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(fullName)); }
 
 const validatelogoLink = (logoLink) => {
     return (/^[a-zA-Z0-9!@#$&()`.:?=_+,/"-]*$/.test(logoLink))

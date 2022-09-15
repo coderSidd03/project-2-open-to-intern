@@ -14,7 +14,12 @@ const CreateCollege = async function (req, res) {
         // if (Validator.checkInputsPresent(rest)) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
 
         if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name is required ( in string )" });
+
         if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "name is invalid, Enter in lowerCase  " });
+
+        // For name unique true:
+        let duplicateCollegeName = await collegeModel.findOne({ name: name.toLowerCase() })
+        if (duplicateCollegeName) { return res.status(400).send({ status: false, msg: "name already exists" }) }
 
         if (!Validator.checkString(fullName)) return res.status(400).send({ status: false, msg: "fullName is required ( in string )" });
         if (!Validator.validatefullName(fullName)) return res.status(400).send({ status: false, msg: "fullName is invalid" });
