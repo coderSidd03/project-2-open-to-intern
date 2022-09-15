@@ -7,14 +7,16 @@ const { createIntern } = require("../controllers/internController.js")
 
 //** --------- //////           APIs             \\\\\\ --------- **//
 
-//  >>>>>     Create college
-router.post("/functionup/colleges", CreateCollege) 
 
-//  >>>>>     Create Intern
-router.post("/functionup/interns", createIntern)
+router.post("/functionup/colleges", CreateCollege);                         //  >>>>>     Create college
 
-//  >>>>>     get college details 
-router.get("/functionup/collegeDetails", getCollegeDetails)
+router.post("/functionup/interns", createIntern);                           //  >>>>>     Create Intern
+
+router.get("/functionup/collegeDetails", getCollegeDetails);                //  >>>>>     get college details 
+
+
+//  >>>>>     for all invalid routes 
+router.all("/*", (req, res) => { res.status(404).send({ status: false, error: " / invalid - path params - provided / " }); });
 
 
 module.exports = router;
