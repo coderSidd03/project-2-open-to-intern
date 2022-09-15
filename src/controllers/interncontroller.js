@@ -26,7 +26,7 @@ const createIntern = async (req, res) => {
         // checking that all inputs are in non empty string and validating with regex
         // name , email , mobile
         if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name required to create new intern ( in string )" })
-        if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "invalid name provided" })
+        if (!Validator.validatefullName(name)) return res.status(400).send({ status: false, msg: "invalid name provided" })
 
         if (!Validator.checkString(email)) return res.status(400).send({ status: false, msg: "email required to create new intern ( in string )" })
         if (!Validator.validateEmail(email)) return res.status(400).send({ status: false, msg: "invalid email provided" })
@@ -34,7 +34,7 @@ const createIntern = async (req, res) => {
         if (!Validator.checkString(mobile)) return res.status(400).send({ status: false, msg: "mobile required to create new intern ( in string )" })
         if (!Validator.validateMobileNo(mobile)) return res.status(400).send({ status: false, msg: "invalid mobile no provided" })
 
-
+       
         // finding that email is already present inside DB or not ?
         let findEmailId = await internModel.findOne({ email: email })
         if (findEmailId) return res.status(404).send({ status: false, message: "provided email is already used...." })
@@ -44,7 +44,7 @@ const createIntern = async (req, res) => {
         if (findMobile) return res.status(404).send({ status: false, message: 'provided Mobile No is already used....' })
 
         // finding that if college is present in DB or not ?
-        let findCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false })
+        let findCollege = await collegeModel.findOne({ name: collegeName.toLowerCase(), isDeleted: false })
         if (!findCollege) return res.status(404).send({ status: false, message: "provided college is not present in DB" })
 
         // setting the found college's id inside data
