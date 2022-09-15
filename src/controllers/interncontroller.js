@@ -16,8 +16,7 @@ const createIntern = async (req, res) => {
         // checking that nothing given other than required fields
         // if (Validator.checkInputsPresent(rest)) return res.status(404).send({ status: false, msg: "provide required details only => name, mobile, email, collegeName" });
 
-        // checking that all inputs are in non empty string and validating with regex
-        // name , email , mobile
+        
         if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name required to create new intern ( in string )" })
         if (!Validator.validatefullName(name)) return res.status(400).send({ status: false, msg: "invalid name provided" })
 
