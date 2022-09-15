@@ -17,13 +17,13 @@ const checkString = (value) => {
 // function to validate regex formats >  name ,fullName, logoLink, email , mobile
 
 const validateName = (name) => {
-  //  return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(fullName));
-  return (/^[a-z]+$/.test(name))
+    //  return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(fullName));
+    return (/^[a-z]+$/.test(name))
 }
 
 const validatefullName = (fullName) => {
     return (/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(fullName));
-  // return (/^[a-z]+$/.test(name))
+    // return (/^[a-z]+$/.test(name))
 }
 
 const validatelogoLink = (logoLink) => {
@@ -45,4 +45,4 @@ const validateId = (id) => {
 }
 
 
-module.exports = { checkInputsPresent, checkString, validateName,validatefullName,validatelogoLink,validateEmail, validateMobileNo, validateId }
+module.exports = { checkInputsPresent, checkString, validateName, validatefullName, validatelogoLink, validateEmail, validateMobileNo, validateId }
