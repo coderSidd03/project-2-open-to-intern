@@ -34,7 +34,6 @@ const CreateCollege = async function (req, res) {
     }
 };
 
-
 //============================      get college Details       ==================   /functionup/collegeDetails   ===============
 const getCollegeDetails = async function (req, res) {
     try {
