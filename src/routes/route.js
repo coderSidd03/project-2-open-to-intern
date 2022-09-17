@@ -1,8 +1,8 @@
 
 const express = require('express');
 const router = express.Router();
-const { CreateCollege, getCollegeDetails } = require("../controllers/collegecontroller")
-const { createIntern } = require("../controllers/internController.js")
+const { CreateCollege, getCollegeDetails } = require("../controllers/collegecontroller");
+const { createIntern } = require("../controllers/internController.js");
 
 
 //** --------- //////           APIs             \\\\\\ --------- **//

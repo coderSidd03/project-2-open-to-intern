@@ -5,7 +5,7 @@ const Validator = require("../validation/validator");
 
 //============================      create college       ==================   /functionup/colleges   ===============
 
-const CreateCollege = async function (req, res) {
+const CreateCollege = async (req, res) => {
     try {
 
         let { name, fullName, logoLink, ...rest } = req.body;
@@ -18,19 +18,20 @@ const CreateCollege = async function (req, res) {
         if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "name is invalid, (required : in lowerCase)  " });
 
         if (!Validator.checkString(fullName)) return res.status(400).send({ status: false, msg: "fullName is required ( in string )" });
-        if (!Validator.validatefullName(fullName)) return res.status(400).send({ status: false, msg: "fullName is invalid" });
+        if (!Validator.validateFullName(fullName)) return res.status(400).send({ status: false, msg: "fullName is invalid" });
 
         if (!Validator.checkString(logoLink)) return res.status(400).send({ status: false, msg: "logoLink is required ( in string )" });
-        if (!Validator.validatelogoLink(logoLink)) return res.status(400).send({ status: false, msg: "logoLink is invalid" });
+        if (!Validator.validateLogoLink(logoLink)) return res.status(400).send({ status: false, msg: "logoLink is invalid" });
 
-        const findcollegeName = await collegeModel.findOne({ name: name.toLowerCase() });
-        if (findcollegeName) return res.status(404).send({ status: false, msg: "college already exist" });
 
-        const findcollegeFullName = await collegeModel.findOne({ name: fullName.toLowerCase() });
-        if (findcollegeFullName) return res.status(404).send({ status: false, msg: "college already exist" });
+        const findCollegeName = await collegeModel.findOne({ name: name.toLowerCase() });
+        if (findCollegeName) return res.status(404).send({ status: false, msg: "college already exist" });
 
+        const findCollegeFullName = await collegeModel.findOne({ name: fullName.toLowerCase() });
+        if (findCollegeFullName) return res.status(404).send({ status: false, msg: "college already exist" });
+
+        // creating new document
         const result = await collegeModel.create(req.body);
-
         res.status(201).send({ status: true, data: result });
     } catch (err) {
         res.status(500).status({ status: false, Error: err.message });
@@ -38,7 +39,7 @@ const CreateCollege = async function (req, res) {
 };
 
 //============================      get college Details       ==================   /functionup/collegeDetails   ===============
-const getCollegeDetails = async function (req, res) {
+const getCollegeDetails = async (req, res) => {
     try {
         let collegeName = req.query.collegeName;
 
@@ -48,9 +49,7 @@ const getCollegeDetails = async function (req, res) {
         if (!getCollegeDetails) return res.status(404).send({ status: false, msg: "college data not exist or deleted already" });
 
         let internsDetails = await internModel.find({ collegeId: getCollegeDetails._id, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 });
-        if (internsDetails.length == 0) (internsDetails.push({ status: false, msg: "no interns found for the given coollege or deleted already" }))
-        // return res.status(404).send({ status: false, msg: "no interns found for the given coollege or deleted already" });
-
+        if (internsDetails.length === 0) (internsDetails.push({ status: false, msg: "no interns found for the given college or deleted already" }));
 
         let result = {
             name: getCollegeDetails['name'],
