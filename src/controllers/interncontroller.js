@@ -18,7 +18,7 @@ const createIntern = async (req, res) => {
 
 
         if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name required to create new intern ( in string )" });
-        if (!Validator.validatefullName(name)) return res.status(400).send({ status: false, msg: "invalid name provided" });
+        if (!Validator.validateFullName(name)) return res.status(400).send({ status: false, msg: "invalid name provided" });
 
         if (!Validator.checkString(email)) return res.status(400).send({ status: false, msg: "email required to create new intern ( in string )" });
         if (!Validator.validateEmail(email)) return res.status(400).send({ status: false, msg: "invalid email provided" });
