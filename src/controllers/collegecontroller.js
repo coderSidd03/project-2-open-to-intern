@@ -48,14 +48,14 @@ const getCollegeDetails = async (req, res) => {
         let getCollegeDetails = await collegeModel.findOne({ name: collegeName.toLowerCase(), isDeleted: false });
         if (!getCollegeDetails) return res.status(404).send({ status: false, msg: "college data not exist or deleted already" });
 
-        let internsDetails = await internModel.find({ collegeId: getCollegeDetails._id, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 });
-        if (internsDetails.length === 0) (internsDetails.push({ status: false, msg: "no interns found for the given college or deleted already" }));
+        let internsData = await internModel.find({ collegeId: getCollegeDetails._id, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 });
+        if (internsData.length === 0) (internsData.push({ status: false, msg: "no interns found for the given college or deleted already" }));
 
         let result = {
             name: getCollegeDetails['name'],
             fullName: getCollegeDetails['fullName'],
             logoLink: getCollegeDetails['logoLink'],
-            interns: internsDetails
+            interns: internsData
         };
         res.status(200).send({ status: true, data: result });
 
