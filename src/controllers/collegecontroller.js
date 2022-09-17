@@ -15,7 +15,7 @@ const CreateCollege = async (req, res) => {
         if (Validator.checkInputsPresent(rest)) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
 
         if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name is required ( in string )" });
-        if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "name is invalid, (required : in lowerCase)  " });
+        if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "name is invalid " });
 
         if (!Validator.checkString(fullName)) return res.status(400).send({ status: false, msg: "fullName is required ( in string )" });
         if (!Validator.validateFullName(fullName)) return res.status(400).send({ status: false, msg: "fullName is invalid" });
@@ -25,10 +25,10 @@ const CreateCollege = async (req, res) => {
 
 
         const findCollegeName = await collegeModel.findOne({ name: name.toLowerCase() });
-        if (findCollegeName) return res.status(404).send({ status: false, msg: "college already exist" });
+        if (findCollegeName) return res.status(409).send({ status: false, msg: "college already exist" });
 
         const findCollegeFullName = await collegeModel.findOne({ name: fullName.toLowerCase() });
-        if (findCollegeFullName) return res.status(404).send({ status: false, msg: "college already exist" });
+        if (findCollegeFullName) return res.status(409).send({ status: false, msg: "college already exist" });
 
         // creating new document
         const result = await collegeModel.create(req.body);
