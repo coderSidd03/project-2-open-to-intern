@@ -8,11 +8,9 @@ const Validator = require("../validation/validator");
 const CreateCollege = async (req, res) => {
     try {
 
-        let { name, fullName, logoLink, ...rest } = req.body;
+        let { name, fullName, logoLink } = req.body;
 
-        if (!Validator.checkInputsPresent(req.body)) return res.status(400).send({ status: false, Error: "please provide details" });
-
-        if (Validator.checkInputsPresent(rest)) return res.status(400).send({ status: false, Error: "please provide required details only => name, fullName, logoLink" });
+        if (!Validator.checkInputsPresent(req.body)) return res.status(400).send({ status: false, msg: "please provide details" });
 
         if (!Validator.checkString(name)) return res.status(400).send({ status: false, msg: "name is required ( in string )" });
         if (!Validator.validateName(name)) return res.status(400).send({ status: false, msg: "name is invalid " });
@@ -40,6 +38,7 @@ const CreateCollege = async (req, res) => {
 
 //============================      get college Details       ==================   /functionup/collegeDetails   ===============
 const getCollegeDetails = async (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*')
     try {
         let collegeName = req.query.collegeName;
 
